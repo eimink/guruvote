@@ -1,6 +1,6 @@
-@(user: models.User)(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+@(user: models.User, games: List[Game])(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
 
-@main(Messages("home.title"), Some(user)) {
+@main(Messages("home.title"), Some(user), games) {
     <div class="user col-md-6 col-md-offset-3">
         <div class="row">
             <hr class="col-md-12" />
@@ -12,18 +12,13 @@
         </div>
         <div class="row data">
             <div class="col-md-12">
+            @for(game <- games) {
                 <div class="row">
-                    <p class="col-md-6"><strong>@Messages("first.name"):</strong></p><p class="col-md-6">@user.firstName.getOrElse("None")</p>
+                    <p class="col-md-2"><strong>Game:</strong></p><p class="col-md-2">@game.name</p>
+                    <p class="col-md-2"><strong>Votes</strong></p><p class="col-md-2">@game.voters.size</p>
+                    <p class="col-md-4"><a href="/game/vote?game=@game.name&user=@user.firstName.get">Vote</a></p>
                 </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@Messages("last.name"):</strong></p><p class="col-md-6">@user.lastName.getOrElse("None")</p>
-                </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@Messages("full.name"):</strong></p><p class="col-md-6">@user.fullName.getOrElse("None")</p>
-                </div>
-                <div class="row">
-                    <p class="col-md-6"><strong>@Messages("email"):</strong></p><p class="col-md-6">@user.email.getOrElse("None")</p>
-                </div>
+                }
             </div>
         </div>
     </div>

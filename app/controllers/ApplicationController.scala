@@ -9,6 +9,9 @@ import play.api.mvc.Controller
 import utils.auth.DefaultEnv
 
 import scala.concurrent.Future
+import models.daos.GameDAOImpl
+import scala.concurrent.ExecutionContext.Implicits.global
+import models.services.GameServiceImpl
 
 /**
  * The basic application controller.
@@ -22,7 +25,8 @@ class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   silhouette: Silhouette[DefaultEnv],
   socialProviderRegistry: SocialProviderRegistry,
-  implicit val webJarAssets: WebJarAssets
+  implicit val webJarAssets: WebJarAssets,
+  gameService: GameServiceImpl
 )
   extends Controller with I18nSupport {
 
@@ -32,7 +36,9 @@ class ApplicationController @Inject() (
    * @return The result to display.
    */
   def index = silhouette.SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.home(request.identity)))
+    gameService.all flatMap { games =>
+      Future.successful(Ok(views.html.home(request.identity, games)))
+    }
   }
 
   /**
@@ -44,5 +50,13 @@ class ApplicationController @Inject() (
     val result = Redirect(routes.ApplicationController.index())
     silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
     silhouette.env.authenticatorService.discard(request.authenticator, result)
+  }
+
+  def vote(user: String, game: String) = silhouette.SecuredAction.async { implicit request =>
+    gameService.vote(game, user) flatMap { game =>
+      gameService.all flatMap { games =>
+        Future.successful(Ok(views.html.home(request.identity, games)))
+      }
+    }
   }
 }

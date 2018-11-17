@@ -7,6 +7,8 @@ GET         /                                controllers.ApplicationController.i
 GET         /signOut                         controllers.ApplicationController.signOut
 GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
 
+GET			/game/vote						 controllers.ApplicationController.vote(user: String, game: String)			
+
 GET         /signUp                          controllers.SignUpController.view
 POST        /signUp                          controllers.SignUpController.submit
 

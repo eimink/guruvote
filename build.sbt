@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtScalariform._
 
 import scalariform.formatter.preferences._
 
-name := "play-silhouette-reactivemongo-seed"
+name := "play-guruvote"
 
 version := "4.0.0"
 
