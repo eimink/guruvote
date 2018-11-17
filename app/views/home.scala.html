@@ -12,17 +12,28 @@
         </div>
         <div class="row data">
             <div class="col-md-12">
+            <table class="table">
+            <thead>
+            <tr><th>Game</th><th>Votes</th><th>Times played</th><th>Action</th></tr>
+            </thead>
+            
             @for(game <- games) {
-                <div class="row">
-                    <p class="col-md-2"><strong>Game:</strong></p><p class="col-md-2">@game.name</p>
-                    <p class="col-md-2"><strong>Votes</strong></p><p class="col-md-2">@game.voters.size</p>
-                    @if(!games.foldLeft(List[String]())((o,p) => p.voters ::: o).contains(user.firstName.get)){
-                    <p class="col-md-4"><a href="/game/vote?game=@game.name&user=@user.firstName.get">Vote</a></p>
+            
+            <tr>
+            <td>@game.name</td>
+            <td>@game.voters.size</td>
+            <td>@game.timesPlayed</td>
+            <td>@if(!games.foldLeft(List[String]())((o,p) => p.voters ::: o).contains(user.firstName.get)){
+                    <a href="/game/vote?game=@game.name&user=@user.firstName.get" class="btn btn-success">Vote</a>
                     } else {
-                    <p class="col-md-4">Already voted!</p>
-                    }
-                </div>
+                    Already voted!
+                    }</td>
+                 </tr>   
                 }
+                </table>
+            </div><div class="col-md-12">
+                <hr/>
+                <p class="col-md-4"><strong>Add game</strong></p><p class="col-md-8"><form action="/game/add"><input type="text" name="game" /><input class="btm bnt-warning" type="submit" value="submit" /></form></p>
             </div>
         </div>
     </div>

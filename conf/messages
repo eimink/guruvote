@@ -4,16 +4,16 @@ invalid.credentials = Invalid credentials!
 access.denied = Access denied!
 could.not.authenticate = Could not authenticate with social provider! Please try again!
 
-home.title = Silhouette - Home
-sign.up.title = Silhouette - Sign Up
-sign.in.title = Silhouette - Sign In
-forgot.password.title = Silhouette - Forgot Password
-reset.password.title = Silhouette - Reset Password
-change.password.title = Silhouette - Change Password
-activate.account.title = Silhouette - Activate Account
+home.title = GuruVote - Home
+sign.up.title = GuruVote - Sign Up
+sign.in.title = GuruVote - Sign In
+forgot.password.title = GuruVote - Forgot Password
+reset.password.title = GuruVote - Reset Password
+change.password.title = GuruVote - Change Password
+activate.account.title = GuruVote - Activate Account
 
 toggle.navigation = Toggle navigation
-welcome.signed.in = Welcome, you are now signed in!
+welcome.signed.in = Welcome, you can cast your vote now!
 
 sign.up.account = Sign up for a new account
 sign.in.credentials = Sign in with your credentials

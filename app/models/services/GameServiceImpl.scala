@@ -33,4 +33,8 @@ class GameServiceImpl @Inject() (gameDAO: GameDAOImpl) extends GameService {
     gameDAO.vote(gameName, voter)
   }
 
+  def add(game: String) = {
+    save(Game(game, 0, List.empty))
+  }
+
 }

@@ -59,4 +59,12 @@ class ApplicationController @Inject() (
       }
     }
   }
+
+  def add(game: String) = silhouette.SecuredAction.async { implicit request =>
+    gameService.add(game) flatMap { game =>
+      gameService.all flatMap { games =>
+        Future.successful(Ok(views.html.home(request.identity, games)))
+      }
+    }
+  }
 }
